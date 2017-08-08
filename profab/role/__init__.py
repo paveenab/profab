@@ -29,6 +29,8 @@ class Role(object):
         """
         pass
 
+    def vpc(self):
+        pass
 
     def bits(self, size):
         """Returns the number of bits that the AMI operating system should

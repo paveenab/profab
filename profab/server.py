@@ -84,6 +84,11 @@ class Server(object):
             if role_adder.root_volume_size():
                 run_args['block_device_map'] = role_adder.root_volume_size()
 
+        # add vpc
+        for role_adder in role_adders:
+            if role_adder.vpc():
+                run_args['vpc'] = role_adder.vpc()
+
         # Calculate how many bits the AMI should be using
         bits = None
         for role_adder in role_adders:
