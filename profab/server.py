@@ -84,10 +84,10 @@ class Server(object):
             if role_adder.root_volume_size():
                 run_args['block_device_map'] = role_adder.root_volume_size()
 
-        # add vpc
+        # add subnet id
         for role_adder in role_adders:
-            if role_adder.vpc():
-                run_args['vpc'] = role_adder.vpc()
+            if role_adder.subnet_id():
+                run_args['subnet_id'] = role_adder.subnet_id()
 
         # Calculate how many bits the AMI should be using
         bits = None

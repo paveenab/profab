@@ -29,7 +29,9 @@ class Role(object):
         """
         pass
 
-    def vpc(self):
+    def subnet_id(self):
+        """Called to determine the subnet id of the new instance network.
+        """
         pass
 
     def bits(self, size):
