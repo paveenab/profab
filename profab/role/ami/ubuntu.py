@@ -19,7 +19,7 @@ class Configure(Role):
         disk = 'ebs'
         amis = struct_amis_dict(self.parameter)
         print("############################################################")
-        print(amis)
+        print(amis[str(bits)][disk].get(region, None))
         print("############################################################")
         return amis[str(bits)][disk].get(region, None)
 
