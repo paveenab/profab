@@ -10,7 +10,7 @@ def read(fname1, fname2):
 
 setup(
     name = "profab",
-    version = "0.5.1.4b",
+    version = "0.5.1.4c",
     author = "Proteus Technologies Infrastructure team",
     author_email = "infrastructure@proteus-tech.com",
     url = 'https://github.com/Proteus-tech/profab',
