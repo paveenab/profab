@@ -19,11 +19,8 @@ def on_this_server(function):
     def wrapper(server, *args, **kwargs):
         """Wrapped method
         """
-        print('config:',server.config, 'cnx:',server.cnx,'eip:',server.eip,'dns_name:',server.instance.dns_name)
-        print('instance:',dir(server.instance))
-        # print('reservation', server.reservation, dir(server.reservation))
         keyfile = get_private_key_filename(server.config, server.cnx)
-        with settings(host_string=server.eip or server.instance.dns_name,
+        with settings(host_string=server.eip or server.instance.public_dns_name,
                 user='ubuntu', key_filename=keyfile, connection_attempts=10):
             function(server, *args, **kwargs)
     return wrapper
@@ -122,7 +119,6 @@ class Server(object):
             _logger.info("Waiting 10s for instance to start...")
             time.sleep(10)
             server.instance.update()
-        print('instance.state',server.instance.state,'instance.dns_name',server.instance.dns_name)
         _logger.info("Instance state now %s with name %s.",
             server.instance.state, server.instance.dns_name)
 
