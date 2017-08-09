@@ -207,6 +207,7 @@ class Server(object):
         _logger.info("First ensure all keys are on server")
         key_file = '~/.ssh/authorized_keys'
         authorized_keys = run('cat %s' % key_file)
+        _logger.info("Authorized_keys: %s", authorized_keys)
         for key in self.config.ssh.ubuntu:
             if key.split()[2] not in authorized_keys:
                 append(key_file, key)
