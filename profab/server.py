@@ -25,7 +25,7 @@ def on_this_server(function):
         print('server.instance.private_dns_name',server.instance.private_dns_name)
         print('server.instance.use_ip',server.instance.use_ip)
         keyfile = get_private_key_filename(server.config, server.cnx)
-        with settings(host_string=server.eip or server.instance.public_dns_name,
+        with settings(host_string=server.eip or server.instance.ip_address,
                 user='ubuntu', key_filename=keyfile, connection_attempts=10):
             function(server, *args, **kwargs)
     return wrapper
