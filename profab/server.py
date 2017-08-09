@@ -22,7 +22,7 @@ def on_this_server(function):
         """
         keyfile = get_private_key_filename(server.config, server.cnx)
         dns_name = gethostbyaddr(server.instance.ip_address)
-        with settings(host_string=server.eip or dns_name,
+        with settings(host_string=server.eip or dns_name[0],
                 user='ubuntu', key_filename=keyfile, connection_attempts=10):
             function(server, *args, **kwargs)
     return wrapper
