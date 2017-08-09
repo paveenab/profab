@@ -1,6 +1,6 @@
 """This module handles the connection to the virtual machines running on EC2.
 """
-from socket import gaierror, getaddrinfo
+from socket import gaierror, getaddrinfo, gethostbyaddr
 import time
 
 from fabric.api import settings, sudo, reboot, run
@@ -13,19 +13,16 @@ from profab.ebs import Volume
 from profab.ec2 import get_all_reservations
 
 
+
 def on_this_server(function):
     """Decorator to wrap methods which require fabric configuration.
     """
     def wrapper(server, *args, **kwargs):
         """Wrapped method
         """
-        print('server.instance.public_dns_name',server.instance.public_dns_name)
-        print('server.instance.ip_address',server.instance.ip_address)
-        print('server.instance.private_ip_address',server.instance.private_ip_address)
-        print('server.instance.private_dns_name',server.instance.private_dns_name)
-        print('server.instance.use_ip',server.instance.use_ip)
         keyfile = get_private_key_filename(server.config, server.cnx)
-        with settings(host_string=server.eip or server.instance.ip_address,
+        dns_name = gethostbyaddr(server.instance.ip_address)
+        with settings(host_string=server.eip or dns_name,
                 user='ubuntu', key_filename=keyfile, connection_attempts=10):
             function(server, *args, **kwargs)
     return wrapper
