@@ -19,6 +19,7 @@ def on_this_server(function):
     def wrapper(server, *args, **kwargs):
         """Wrapped method
         """
+        print('config:',server.config, 'cnx:',server.cnx,'eip:',server.eip,'dns_name:',server.instance.dns_name)
         keyfile = get_private_key_filename(server.config, server.cnx)
         with settings(host_string=server.eip or server.instance.dns_name,
                 user='ubuntu', key_filename=keyfile, connection_attempts=10):
